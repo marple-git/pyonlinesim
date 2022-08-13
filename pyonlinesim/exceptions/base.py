@@ -1,0 +1,7 @@
+API_EXCEPTIONS = ['ACCOUNT_BLOCKED', 'ERROR_WRONG_KEY', 'ERROR_NO_KEY',
+                  'ERROR_NO_SERVICE', 'REQUEST_NOT_FOUND', 'API_ACCESS_DISABLED',
+                  'API_ACCESS_IP', 'WARNING_LOW_BALANCE']
+
+
+class APIError(Exception):
+    pass
