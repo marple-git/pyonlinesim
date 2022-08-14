@@ -1,5 +1,4 @@
 pygments
-sphinx
 sphinx-autobuild
 furo
 sphinx-notfound-page
