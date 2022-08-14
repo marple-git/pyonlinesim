@@ -2,7 +2,6 @@ furo
 markdown-include
 pygments
 sphinx
-sphinxemoji
 sphinx-autobuild
 sphinx-copybutton
 sphinx-intl
