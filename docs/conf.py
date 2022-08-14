@@ -1,3 +1,5 @@
+import pyonlinesim
+
 project = 'pyonlinesim'
 copyright = '2022, Marple'
 author = 'Marple'
