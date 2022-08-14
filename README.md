@@ -5,7 +5,7 @@
 [![Code Grade](https://api.codiga.io/project/34377/status/svg)](https://api.codiga.io/project/34377/status/svg)
 
 ## 🔗 Links
-* 🎓 **Documentation:** [*CLICK*](https://pyonlinesim.readthedocs.io/en/latest/index.html)
+* 🎓 **Documentation:** [*CLICK*](https://pyonlinesim.readthedocs.io/en/latest/)
 * 🖱️ **Developer contacts:** [![Dev-Telegram](https://img.shields.io/badge/Telegram-blue.svg?style=flat-square&logo=telegram)](https://t.me/marple_tech)
 ## 🐦 Dependencies  
 
