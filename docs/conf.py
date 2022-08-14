@@ -1,7 +1,7 @@
 project = 'pyonlinesim'
 copyright = '2022, Marple'
 author = 'Marple'
-release = '1.0.1'
+release = pyonlinesim.__version__
 
 
 extensions = [
