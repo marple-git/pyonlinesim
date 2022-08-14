@@ -1,6 +1,8 @@
 [![Downloads](https://pepy.tech/badge/pyonlinesim)](https://pepy.tech/project/pyonlinesim)
 [![Downloads](https://pepy.tech/badge/pyonlinesim/month)](https://pepy.tech/project/pyonlinesim)
 [![Downloads](https://pepy.tech/badge/pyonlinesim/week)](https://pepy.tech/project/pyonlinesim)
+[![Code Quality Score](https://api.codiga.io/project/34377/score/svg)](https://api.codiga.io/project/34377/score/svg)
+[![Code Grade](https://api.codiga.io/project/34377/status/svg)](https://api.codiga.io/project/34377/status/svg)
 
 ## 🔗 Links
 * 🎓 **Documentation:** [*CLICK*](https://pyonlinesim.readthedocs.io/en/latest/index.html)
