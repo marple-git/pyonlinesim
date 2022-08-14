@@ -1,4 +1,4 @@
-from pyonlinesim.exceptions.base import APIError
+from .base import APIError
 
 
 class ExceededConcurrentOperations(APIError):
@@ -44,3 +44,13 @@ class DuplicateError(APIError):
 class NotEnoughFunds(APIError):
     match = 'warning_low_balance'
     text = 'Not enough funds'
+
+
+class WrongOperationID(APIError):
+    match = 'error_wrong_tzid'
+    text = 'Wrong operation ID'
+
+
+class CantFinishOrder(APIError):
+    match = 'no_complete_tzid'
+    text = 'Unable to finish order'

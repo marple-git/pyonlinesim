@@ -16,3 +16,6 @@ class RentMethods(Enum):
     GET_RENT_STATE = 'getRentState'
     EXTEND_RENT_STATE = 'extendRentState'
     CLOSE_RENT_NUM = 'closeRentNum'
+
+
+__all__ = ['Methods', 'RentMethods']

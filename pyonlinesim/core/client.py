@@ -3,10 +3,10 @@ from typing import Optional, Union, List
 
 from aiohttp import ClientSession
 
-from pyonlinesim import exceptions
-from pyonlinesim.core.abc import BaseAPIClient
-from pyonlinesim.core.methods import Methods, RentMethods
-from pyonlinesim.types import Balance, NumberStats, OrderNumber, OrderState
+from .. import exceptions
+from .abc import BaseAPIClient
+from .methods import Methods, RentMethods
+from ..types import Balance, NumberStats, OrderNumber, StateInfo, OrderManaged
 
 
 class OnlineSim(BaseAPIClient, ABC):
@@ -17,6 +17,12 @@ class OnlineSim(BaseAPIClient, ABC):
         super().__init__(api_key)
 
     async def _send_request(self, method: Union[Methods, RentMethods], params: Optional[dict] = None) -> dict:
+        """
+        Send request to the API
+        :param method: API Method
+        :param params: Parameters
+        :return: JSON
+        """
         async with ClientSession() as session:
             params = self._delete_none(params or {})
             params['apikey'] = self.api_key
@@ -69,7 +75,7 @@ class OnlineSim(BaseAPIClient, ABC):
 
     async def get_order_info(self, operation_id: int, get_full_message: Optional[bool] = False,
                              form: Optional[int] = None, order_by: Optional[str] = None,
-                             msg_list: Optional[int] = None, clean: Optional[int] = None) -> OrderState:
+                             msg_list: Optional[int] = None, clean: Optional[int] = None) -> StateInfo:
         """
         Get Order Info
         :param clean: Do not show messages on a circle (?).
@@ -83,14 +89,36 @@ class OnlineSim(BaseAPIClient, ABC):
         params = {"tzid": operation_id, "message_to_code": 0 if get_full_message else 1,
                   "form": form, "order_by": order_by, "msg_list": msg_list, "clean": clean}
         result = await self._send_request(Methods.GET_STATE, params)
-        return OrderState(**result)
+        corrected_json = {"response": "1", "orders": result}
+        return StateInfo(**corrected_json)
+
+    async def finish_order(self, operation_id: int, ban: Optional[bool] = False) -> OrderManaged:
+        """
+        Finish Order
+        :param ban: Block Number (Only for Chinese numbers)
+        :param operation_id: Operation ID
+        :return: None
+        """
+        params = {"tzid": operation_id, "ban": 1 if ban else 0}
+        result = await self._send_request(Methods.SET_OPERATION_OK, params)
+        return OrderManaged(**result)
+
+    async def revise_order(self, operation_id: int) -> OrderManaged:
+        """
+        Revise Order
+        :param operation_id: Operation ID
+        :return: None
+        """
+        params = {"tzid": operation_id}
+        result = await self._send_request(Methods.SET_OPERATION_REVISE, params)
+        return OrderManaged(**result)
 
     def _get_request_url(self, method: Union[Methods, RentMethods]) -> str:
         url = self.BASE_URL if isinstance(method, Methods) else self.RENT_URL
         url += f'{method.value}.php'
         return url
 
-    def _delete_none(self, _dict):
+    def _delete_none(self, _dict: dict) -> dict:
         """Delete None values recursively from all of the dictionaries"""
         for key, value in list(_dict.items()):
             if isinstance(value, dict):
@@ -108,4 +136,4 @@ class OnlineSim(BaseAPIClient, ABC):
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
-        del self
+        return None

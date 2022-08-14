@@ -1,4 +1,4 @@
-from pyonlinesim.exceptions.base import APIError
+from .base import APIError
 
 
 class AccountBlocked(APIError):
