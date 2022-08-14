@@ -11,3 +11,4 @@ sphinxcontrib-mermaid
 sphinxemoji
 towncrier
 typing-extensions
+pyonlinesim
