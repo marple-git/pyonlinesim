@@ -37,7 +37,7 @@ html_logo = '_static/logo_black.svg'
 html_static_path = ['_static']
 
 source_suffix = '.rst'
-root_doc = 'index'
+master_doc = 'index'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 add_function_parentheses = True
