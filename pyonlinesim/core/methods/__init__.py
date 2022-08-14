@@ -3,7 +3,7 @@ from enum import Enum
 
 class Methods(Enum):
     GET_BALANCE = 'getBalance'
-    GET_NUMBER_STATS = 'getNumberStats'
+    GET_NUMBERS_STATS = 'getNumbersStats'
     GET_NUM = 'getNum'
     GET_STATE = 'getState'
     SET_OPERATION_REVISE = 'setOperationRevise'
