@@ -1,34 +1,58 @@
 import abc
 from typing import Optional, Union, List
 
-from pyonlinesim.core.methods import Methods, RentMethods
+from aiohttp import ClientSession
+
+from ... import exceptions
+from ..methods import Methods, RentMethods
 
 
 class BaseAPIClient(abc.ABC):
+    BASE_URL = None
+
     def __init__(self, api_key: str):
         self.api_key = api_key
 
-    async def _send_request(self, method: Union[Methods, RentMethods], params: Optional[dict] = None) -> None:
-        pass
+    async def _send_request(self, method: Union[Methods, RentMethods], params: Optional[dict] = None) -> dict:
+        """
+        Send request to the API
+        :param method: API Method
+        :param params: Parameters
+        :return: JSON
+        """
+        async with ClientSession() as session:
+            params = self._delete_none(params or {})
+            params['apikey'] = self.api_key
+            request_url = self._get_request_url(method)
+            response = await session.get(request_url, params=params)
+            json = await response.json()
+            if isinstance(json, dict):
+                if json.get("response", None) and str(json['response']) != '1':
+                    exceptions.APIError.detect(json['response'])
+                elif json.get('original', None) and json['original']['response'] != '1':
+                    exceptions.APIError.detect(json['original']['response'])
+            return json
 
-    async def get_balance(self) -> None:
-        pass
+    def _get_request_url(self, method: Union[Methods, RentMethods]) -> str:
+        return f'{self.BASE_URL}{method.value}.php'
 
-    async def get_services(self, country: Optional[str] = None) -> None:
-        pass
+    def _delete_none(self, _dict: dict) -> dict:
+        """Delete None values recursively from all of the dictionaries"""
+        for key, value in list(_dict.items()):
+            if isinstance(value, dict):
+                self._delete_none(value)
+            elif value is None:
+                del _dict[key]
+            elif isinstance(value, list):
+                for v_i in value:
+                    if isinstance(v_i, dict):
+                        self._delete_none(v_i)
 
-    async def order_number(self, service: str, region: Optional[int] = None, country: Optional[int] = None,
-                           reject: Optional[List[int]] = None, extension: Optional[int] = None,
-                           number: Optional[bool] = None, dev_id: Optional[int] = None) -> None:
-        pass
+        return _dict
 
-    async def get_order_info(self, operation_id: int, get_full_message: Optional[bool] = False,
-                             form: Optional[int] = None, order_by: Optional[str] = None,
-                             msg_list: Optional[int] = None, clean: Optional[int] = None) -> None:
-        pass
+    async def __aenter__(self):
+        return self
 
-    async def finish_order(self, operation_id: int, ban: Optional[bool] = False) -> None:
-        pass
+    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
+        return None
 
-    async def revise_order(self, operation_id: int) -> None:
-        pass

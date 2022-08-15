@@ -1,4 +1,4 @@
-from .base import APIError
+from pyonlinesim.exceptions.base import APIError
 
 
 class OperationsNotFound(APIError):

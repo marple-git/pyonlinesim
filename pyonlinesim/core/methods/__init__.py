@@ -18,4 +18,7 @@ class RentMethods(Enum):
     CLOSE_RENT_NUM = 'closeRentNum'
 
 
-__all__ = ['Methods', 'RentMethods']
+class ProxyMethods(Enum):
+    pass
+
+__all__ = ['Methods', 'RentMethods', 'ProxyMethods']

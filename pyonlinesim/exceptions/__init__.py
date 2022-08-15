@@ -1,7 +1,7 @@
 from .authentication import AccountBlocked, WrongAPIKey, NoAPIKey, NoServiceProvided, \
     RequestNotFound, APIAccessDisabled, APIAccessIP, NoCountry, TryAgainLater
 from .base import APIError
-from .order import ExceededConcurrentOperations, NoNumber, TimeIntervalError, \
+from .sms.order import ExceededConcurrentOperations, NoNumber, TimeIntervalError, \
     NoDefferForward, NoNumberForForward, ForwardLengthError, DuplicateError, NotEnoughFunds, \
     IntervalConcurrentRequestsError
 

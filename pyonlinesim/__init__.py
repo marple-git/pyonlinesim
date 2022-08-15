@@ -1,5 +1,5 @@
-from . import exceptions
-from .core.client import OnlineSim
+from .clients import OnlineSMS, OnlineRent
 
-__version__ = '1.0.1'
-__all__ = ['OnlineSim', "exceptions", '__version__']
+__version__ = '1.0.2'
+__all__ = ['OnlineSMS', 'OnlineRent', '__version__']
+

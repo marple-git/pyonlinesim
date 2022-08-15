@@ -1,40 +1,16 @@
 from abc import ABC
-from typing import Optional, Union, List
+from typing import Optional, List
 
-from aiohttp import ClientSession
-
-from .. import exceptions
-from .abc import BaseAPIClient
-from .methods import Methods, RentMethods
-from ..types import Balance, NumberStats, OrderNumber, StateInfo, OrderManaged
+from ..core.abc import BaseAPIClient
+from ..core.methods import Methods
+from ..types.sms import Balance, NumberStats, OrderNumber, StateInfo, OrderManaged
 
 
-class OnlineSim(BaseAPIClient, ABC):
+class OnlineSMS(BaseAPIClient, ABC):
     BASE_URL = 'https://onlinesim.ru/api/'
-    RENT_URL = 'https://onlinesim.ru/api/rent/'
 
     def __init__(self, api_key: str):
         super().__init__(api_key)
-
-    async def _send_request(self, method: Union[Methods, RentMethods], params: Optional[dict] = None) -> dict:
-        """
-        Send request to the API
-        :param method: API Method
-        :param params: Parameters
-        :return: JSON
-        """
-        async with ClientSession() as session:
-            params = self._delete_none(params or {})
-            params['apikey'] = self.api_key
-            request_url = self._get_request_url(method)
-            response = await session.get(request_url, params=params)
-            json = await response.json()
-            if isinstance(json, dict):
-                if json.get("response", None) and str(json['response']) != '1':
-                    exceptions.APIError.detect(json['response'])
-                elif json.get('original', None) and json['original']['response'] != '1':
-                    exceptions.APIError.detect(json['original']['response'])
-            return json
 
     async def get_balance(self) -> Balance:
         """
@@ -112,28 +88,3 @@ class OnlineSim(BaseAPIClient, ABC):
         params = {"tzid": operation_id}
         result = await self._send_request(Methods.SET_OPERATION_REVISE, params)
         return OrderManaged(**result)
-
-    def _get_request_url(self, method: Union[Methods, RentMethods]) -> str:
-        url = self.BASE_URL if isinstance(method, Methods) else self.RENT_URL
-        url += f'{method.value}.php'
-        return url
-
-    def _delete_none(self, _dict: dict) -> dict:
-        """Delete None values recursively from all of the dictionaries"""
-        for key, value in list(_dict.items()):
-            if isinstance(value, dict):
-                self._delete_none(value)
-            elif value is None:
-                del _dict[key]
-            elif isinstance(value, list):
-                for v_i in value:
-                    if isinstance(v_i, dict):
-                        self._delete_none(v_i)
-
-        return _dict
-
-    async def __aenter__(self) -> 'OnlineSim':
-        return self
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
-        return None
