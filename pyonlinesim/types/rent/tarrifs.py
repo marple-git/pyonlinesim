@@ -15,15 +15,6 @@ class Numbers(BaseModel):
     fifteen_days: Optional[NumberData] = Field(None, alias='15')
     thirty_days: Optional[NumberData] = Field(None, alias='30')
 
-    # @validator('amount', pre=True)
-    # def iter_to_lists(cls, v):
-    #     print(v)
-    #     return [v[key] for key in list(v)]
-    #
-    # @validator('price', pre=True)
-    # def iter_to_list(cls, v):
-    #     return [v[key] for key in list(v)]
-
 
 class RentTariff(BaseModel):
     id: int = Field(..., alias='code')

@@ -12,14 +12,6 @@ class OnlineSMS(BaseAPIClient, ABC):
     def __init__(self, api_key: str):
         super().__init__(api_key)
 
-    async def get_balance(self) -> Balance:
-        """
-        Get Account Balance Method
-        :return: Balance
-        """
-        result = await self._send_request(Methods.GET_BALANCE)
-        return Balance(**result)
-
     async def get_services(self, country: Optional[str] = None) -> NumberStats:
         """
         Get Number Stats
