@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyonlinesim"
-version = "1.0.1"
+version = "1.1.1"
 description = "Asynchronous wrapper to interact with onlinesim.ru API"
 authors = ["Marple"]
 readme = "README.md"
