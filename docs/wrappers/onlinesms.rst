@@ -1,8 +1,8 @@
-OnlineSim
+OnlineSMS
 ==========
 
 
-.. autoclass:: pyonlinesim.OnlineSim
+.. autoclass:: pyonlinesim.OnlineSMS
     :members:
     :show-inheritance:
     :member-order: bysource
