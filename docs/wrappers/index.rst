@@ -1,4 +1,5 @@
 Available Wrappers
 ====================
 .. toctree::
-    onlinesim
+    onlinesms
+    onlinerent

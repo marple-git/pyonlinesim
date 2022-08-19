@@ -3,7 +3,7 @@ import pyonlinesim
 project = 'pyonlinesim'
 copyright = '2022, Marple'
 author = 'Marple'
-release = pyonlinesim.__version__
+release = '1.1'
 
 
 extensions = [

@@ -5,13 +5,22 @@ from aiohttp import ClientSession
 
 from ... import exceptions
 from ..methods import Methods, RentMethods
+from ...types import Balance
 
 
 class BaseAPIClient(abc.ABC):
-    BASE_URL = None
+    BASE_URL = 'https://onlinesim.ru/api/'
 
     def __init__(self, api_key: str):
         self.api_key = api_key
+
+    async def get_balance(self) -> Balance:
+        """
+        Get Account Balance Method
+        :return: Balance
+        """
+        result = await self._send_request(Methods.GET_BALANCE)
+        return Balance(**result)
 
     async def _send_request(self, method: Union[Methods, RentMethods], params: Optional[dict] = None) -> dict:
         """
@@ -34,6 +43,8 @@ class BaseAPIClient(abc.ABC):
             return json
 
     def _get_request_url(self, method: Union[Methods, RentMethods]) -> str:
+        if self.BASE_URL.endswith('rent/') and method == Methods.GET_BALANCE:
+            return f"{self.BASE_URL.replace('rent/', '')}{method.value}.php"
         return f'{self.BASE_URL}{method.value}.php'
 
     def _delete_none(self, _dict: dict) -> dict:
@@ -55,4 +66,3 @@ class BaseAPIClient(abc.ABC):
 
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         return None
-
