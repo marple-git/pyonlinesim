@@ -1,5 +1,5 @@
 OnlineRent
-======
+===========
 .. autoclass:: pyonlinesim.types.RentStatus
     :members:
     :show-inheritance:

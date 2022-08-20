@@ -1,5 +1,5 @@
 OnlineSMS
-======
+==========
 .. autoclass:: pyonlinesim.types.Balance
     :members:
     :show-inheritance:

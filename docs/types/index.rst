@@ -1,5 +1,5 @@
 Types
-====================
+==================
 .. toctree::
     onlinesms
     onlinerent
