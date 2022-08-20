@@ -10,10 +10,10 @@ How to get account balance?
 
     import asyncio
 
-    from pyonlinesim import OnlineSMS
+    from pyonlinesim import OnlineRent
 
     async def get_balance(api_token: str) -> None:
-        async with OnlineSMS(api_token=api_token) as client:
+        async with OnlineRent(api_token=api_token) as client:
             result = await client.get_balance()  # Balance(response='1', balance=0.0, frozen_balance=0.0)
 
 
