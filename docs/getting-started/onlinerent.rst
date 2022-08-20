@@ -1,9 +1,9 @@
 OnlineRent
-===========
+============
 
 
 How to get account balance?
--------------------------------
+-----------------------------
 
 
 .. code-block:: python
@@ -20,7 +20,7 @@ How to get account balance?
     asyncio.run(get_balance(api_token='my_token'))
 
 How to get available tariffs by country?
-------------------------------------------
+-----------------------------------------
 
 
 .. code-block:: python
@@ -40,7 +40,7 @@ How to get available tariffs by country?
     asyncio.run(get_services(api_token='my_token', country='380')) # 380 is Ukraine telephone code
 
 How to rent a number?
-------------------------
+-----------------------
 
 
 .. code-block:: python
@@ -60,7 +60,7 @@ How to rent a number?
 
 
 How to get order info and SMS-Code?
------------------------------------------
+--------------------------------------
 
 
 .. code-block:: python
@@ -78,7 +78,7 @@ How to get order info and SMS-Code?
     asyncio.run(get_order_info(api_token='my_token', operation_id=551166) # 551166 is a order.operation_id received from order_number method.
 
 How to finish my order?
-------------------------------
+---------------------------
 
 
 .. code-block:: python
@@ -96,7 +96,7 @@ How to finish my order?
     asyncio.run(finish_order(api_token='my_token', operation_id=551166) # 551166 is a order.operation_id received from order_number method.
 
 How to extend number rent?
-------------------------------
+----------------------------
 
 
 .. code-block:: python
