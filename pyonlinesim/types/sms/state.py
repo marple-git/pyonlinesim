@@ -18,6 +18,7 @@ class OrderState(BaseModel):
     service: str
     number: str
     time_left: int = Field(..., alias='time')
+    message: str = Field(None, alias='msg')
     form: str
     country: int
     sum: Optional[int]
